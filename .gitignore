@@ -59,3 +59,4 @@ cmake-build*
 build
 bfinder
 PMDG
+PMDG_*

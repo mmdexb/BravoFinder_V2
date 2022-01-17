@@ -32,7 +32,7 @@ RUN make
 WORKDIR "../../"
 
 # ---------- run ------------ #
-FROM busybox:glibc
+FROM ubuntu:latest
 
 WORKDIR /service
 
