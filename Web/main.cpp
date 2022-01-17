@@ -12,11 +12,11 @@ void run()
 
     auto connectionHandler = oatpp::web::server::HttpConnectionHandler::createShared(router);
 
-    auto connectionProvider = oatpp::network::tcp::server::ConnectionProvider::createShared({"localhost", 8000, oatpp::network::Address::IP_4});
+    auto connectionProvider = oatpp::network::tcp::server::ConnectionProvider::createShared({"0.0.0.0", 8000, oatpp::network::Address::IP_4});
 
     oatpp::network::Server server(connectionProvider, connectionHandler);
 
-    OATPP_LOGI("MyApp", "Server running on port %s", connectionProvider->getProperty("port").getData());
+    OATPP_LOGI("BfFinder", "Server running on port %s", connectionProvider->getProperty("port").getData());
 
     server.run();
 }

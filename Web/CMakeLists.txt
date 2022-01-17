@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.1)
 project(Web)
 
 set(CMAKE_CXX_STANDARD 11)
-set(SOURCE_FILES main.cpp handler.hpp bfhandler.hpp BfDataset.hpp)
+set(SOURCE_FILES main.cpp bfhandler.hpp BfDataset.hpp)
 
 include_directories(/usr/local/include/bfinder)
 

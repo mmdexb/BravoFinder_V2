@@ -3,6 +3,7 @@
 //
 
 #include <memory>
+#include <stdlib.h>
 #include <iostream>
 #include "bfhandler.hpp"
 
@@ -13,7 +14,8 @@ class BfDataset
 private:
     BfDataset() {
         dataset = std::shared_ptr<bf::DataSet>(new bf::DataSet);
-        dataset->SetDataPath("/media/psf/Home/Documents/Coding/VATPRC/BravoFinder/PMDG");
+        std::cout << getenv("DATASET_PATH");
+        dataset->SetDataPath(getenv("DATASET_PATH"));
         dataset->Initialize();
     };
     ~BfDataset() {

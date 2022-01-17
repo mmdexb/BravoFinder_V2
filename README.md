@@ -12,3 +12,10 @@ Very simple route finder based on PMDG navigation dataset.
 - `Library`, the refactoried BravoFinder algorithm library. You can follow the instructions in `Library/README.md`.
 - `CliExample`, a really simple CLI demonstration. Checkout `CliExample/README.md`.
 - `WebAPI`, a simple Web API demonstration.
+
+# Docker
+
+```
+docker build -t bfinder .
+docker run -v <pmdg_data_dir>:/dataset -p <local_port>:8000 --name bfinder bfinder
+```

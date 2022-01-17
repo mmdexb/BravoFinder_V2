@@ -2,18 +2,16 @@
 #define BF_HANDLER_H
 
 #include "oatpp/web/server/HttpRequestHandler.hpp"
+#include "oatpp/network/tcp/server/ConnectionProvider.hpp"
 #include <bfinder/bfinder.h>
 #include "BfDataset.hpp"
-
-#define O_UNUSED(x) (void)x;
 
 class BfHandler : public oatpp::web::server::HttpRequestHandler {
 public:
     std::shared_ptr<OutgoingResponse> handle(const std::shared_ptr<IncomingRequest> &request) override {
-        O_UNUSED(request);
 
         oatpp::String tail = request->getPathTail();
-        auto queryParams = oatpp::network::Url::Parser::parseQueryParams(tail);
+        auto const &queryParams = oatpp::network::Url::Parser::parseQueryParams(tail);
 
         std::string arr;
         std::string dep;
@@ -27,17 +25,19 @@ public:
                 arr = (std::string) p.second.toString();
             }
         }
+        OATPP_LOGI("BfFinder", "%s %s", dep.c_str(), arr.c_str());
 
         try {
             if (dep == arr) {
                 throw "404";
             }
-            auto &dataset = BfDataset::getInstance();
-            auto result = dataset.dataset->FindRoute(dep, arr);
-            return ResponseFactory::createResponse(Status::CODE_200, result.get()->route);
+            auto const &dataset = BfDataset::getInstance();
+            auto const &result = dataset.dataset->FindRoute(dep, arr);
+            return ResponseFactory::createResponse(Status::CODE_200,
+                                                   "{\"result\": \"" + result.get()->route + "\"}");
         }
         catch (...) {
-            return ResponseFactory::createResponse(Status::CODE_404, "cannot calculate a route");
+            return ResponseFactory::createResponse(Status::CODE_404, "{\"error\": \"cannot calculate a route\"}");
         }
     }
 };
